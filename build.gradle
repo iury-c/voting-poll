@@ -49,6 +49,7 @@ jacocoTestCoverageVerification {
 			element = 'CLASS'
 			includes = [
 				'com.demoapp.votingpoll.service.*',
+				'com.demoapp.votingpoll.controller.*',
 			]
 			limit {
 				counter = 'LINE'

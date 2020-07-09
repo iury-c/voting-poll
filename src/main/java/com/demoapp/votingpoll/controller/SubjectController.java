@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @Api(tags = "Subject APIs")
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class SubjectController extends BaseController {
+public class SubjectController {
 
     private final SubjectService subjectService;
 

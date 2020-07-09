@@ -3,7 +3,7 @@ package com.demoapp.votingpoll.service;
 import com.demoapp.votingpoll.dto.SubjectDto;
 import com.demoapp.votingpoll.entity.Subject;
 import com.demoapp.votingpoll.repository.SubjectRepository;
-import org.junit.Assert;
+import lombok.Data;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
+@Data
 public class SubjectServiceTest {
 
     @InjectMocks
