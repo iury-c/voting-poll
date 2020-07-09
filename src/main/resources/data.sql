@@ -1,12 +1,26 @@
 -- DDL
 
-CREATE TABLE IF NOT EXISTS billionaires (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  first_name VARCHAR(250) NOT NULL,
-  last_name VARCHAR(250) NOT NULL,
-  career VARCHAR(250) DEFAULT NULL
+CREATE TABLE IF NOT EXISTS subject (
+  id INT PRIMARY KEY,
+  name VARCHAR(250) NOT NULL,
+  create_date DATE NOT NULL
 );
 
--- REPORTS
+CREATE TABLE IF NOT EXISTS associate (
+  cpf VARCHAR(11) PRIMARY KEY,
+  name VARCHAR(250) NOT NULL
+);
 
--- select * from results
+CREATE TABLE IF NOT EXISTS session (
+  id INT PRIMARY KEY,
+  start DATE NOT NULL,
+  finish DATE NOT NULL
+);
+
+-- DML
+-- Creating some associates, NERGE is being used instead of INSERT cause they can't be created everytime app restarts
+MERGE INTO associate
+  KEY(cpf)
+VALUES ('19839091069', 'Associate A - able to Vote'),
+  ('62289608068', 'Associate B - NOT able to Vote'),
+  ('12345678910', 'Associate C - Test');
