@@ -47,8 +47,10 @@ public class SessionService {
         session.setStart(calendar.getTime());
 
         if (Objects.isNull(sessionDuration) || sessionDuration <= 0) {
+            log.info("Session duration set to default.");
             calendar.add(Calendar.MINUTE, duration);
         } else {
+            log.info("Session duration set to: {}", sessionDuration);
             calendar.add(Calendar.MINUTE, sessionDuration);
         }
 

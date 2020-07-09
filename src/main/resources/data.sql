@@ -19,8 +19,15 @@ CREATE TABLE IF NOT EXISTS session (
   foreign key (subject_id) references subject(id)
 );
 
+CREATE TABLE IF NOT EXISTS vote (
+  cpf VARCHAR(11) NOT NULL,
+  session_id INT NOT NULL,
+  type VARCHAR(11),
+  create_date DATE NOT NULL
+);
+
 -- DML
--- Creating some associates, NERGE is being used instead of INSERT cause they can't be created everytime app restarts
+-- Creating some associates, MERGE is being used instead of INSERT cause they should not be recreated everytime app restarts
 MERGE INTO associate
   KEY(cpf)
 VALUES ('19839091069', 'Associate A - able to Vote'),
