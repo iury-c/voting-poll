@@ -1,8 +1,8 @@
 package com.demoapp.votingpoll.controller;
 
-import com.demoapp.votingpoll.dto.SubjectDto;
-import com.demoapp.votingpoll.entity.Subject;
-import com.demoapp.votingpoll.service.SubjectService;
+import com.demoapp.votingpoll.dto.SessionDto;
+import com.demoapp.votingpoll.entity.Session;
+import com.demoapp.votingpoll.service.SessionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -19,21 +19,21 @@ import javax.validation.Valid;
 
 @RestController
 @Slf4j
-@Api(tags = "Subject APIs")
+@Api(tags = "Session APIs")
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
-public class SubjectController {
+public class SessionController {
 
     @Autowired
-    private SubjectService subjectService;
+    private SessionService sessionService;
 
-    @PostMapping("/subject")
-    @ApiOperation(value = "Creates a new subject for discussion")
+    @PostMapping("/session")
+    @ApiOperation(value = "Creates a new session for discussion")
     @ApiResponses({
         @ApiResponse(code = 200, message = "Ok"),
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    public Subject createSubject(@Valid @RequestBody SubjectDto subjectDto) {
-        log.info("New Subject received: {}", subjectDto);
-        return subjectService.createSubject(subjectDto);
+    public Session createSession(@Valid @RequestBody SessionDto sessionDto) {
+        log.info("New Session received: {}", sessionDto);
+        return sessionService.createSession(sessionDto);
     }
 }

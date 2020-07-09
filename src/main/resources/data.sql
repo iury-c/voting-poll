@@ -2,7 +2,7 @@
 
 CREATE TABLE IF NOT EXISTS subject (
   id INT PRIMARY KEY,
-  name VARCHAR(250) NOT NULL,
+  name VARCHAR(250) UNIQUE NOT NULL,
   create_date DATE NOT NULL
 );
 
@@ -13,8 +13,10 @@ CREATE TABLE IF NOT EXISTS associate (
 
 CREATE TABLE IF NOT EXISTS session (
   id INT PRIMARY KEY,
+  subject_id INT NOT NULL,
   start DATE NOT NULL,
-  finish DATE NOT NULL
+  finish DATE NOT NULL,
+  foreign key (subject_id) references subject(id)
 );
 
 -- DML

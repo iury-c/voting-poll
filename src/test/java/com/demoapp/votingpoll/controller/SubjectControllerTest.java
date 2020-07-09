@@ -26,11 +26,11 @@ public class SubjectControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void shouldReturnHttpStatusCreated() throws Exception {
+    public void shouldReturnHttpStatusSuccess() throws Exception {
         mvc.perform(post("/v1/subject")
             .content("{\"name\": \"subjectTestIntegrated\"}")
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated());
+            .andExpect(status().isOk());
     }
 
     @Test
