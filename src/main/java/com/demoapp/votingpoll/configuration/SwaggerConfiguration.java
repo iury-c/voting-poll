@@ -8,7 +8,10 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.DocExpansion;
+import springfox.documentation.swagger.web.OperationsSorter;
 import springfox.documentation.swagger.web.UiConfiguration;
+import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
@@ -31,9 +34,12 @@ public class SwaggerConfiguration {
     }
 
     @Bean
-    public UiConfiguration uiConfig() {
-        return new UiConfiguration(null, "list", "alpha", "schema", UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS,
-            false, true, null);
+    public UiConfiguration uiConfiguration() {
+        return UiConfigurationBuilder.builder()
+            .validatorUrl(null)
+            .docExpansion(DocExpansion.LIST)
+            .operationsSorter(OperationsSorter.ALPHA)
+            .build();
     }
 
 }
