@@ -22,6 +22,8 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleBeanValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
+            log.error(error.getDefaultMessage());
+
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
@@ -33,6 +35,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({IllegalStateException.class, IllegalArgumentException.class})
     @ResponseBody
     public Map<String, String> handleIllegalArgumentExceptions(IllegalArgumentException ex) {
+        log.error(ex.getMessage());
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return errors;

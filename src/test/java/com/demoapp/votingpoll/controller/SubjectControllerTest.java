@@ -26,7 +26,7 @@ public class SubjectControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void shouldReturnHttpStatusSuccess() throws Exception {
+    public void shouldCreateSubjectSuccessfully() throws Exception {
         mvc.perform(post("/v1/subject")
             .content("{\"name\": \"subject1\"}")
             .contentType(MediaType.APPLICATION_JSON))
@@ -34,11 +34,11 @@ public class SubjectControllerTest {
     }
 
     @Test
-    public void shouldReturnHttpStatusBadRequestWhenSubjectNameIsEmpty() throws Exception {
+    public void shouldReceiveErrorWhenSubjectNameIsEmpty() throws Exception {
         mvc.perform(post("/v1/subject")
             .content("{\"name\": \"\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest())
-        .andExpect(content().string("{\"name\":\"Name should not be blank.\"}"));
+            .andExpect(content().string("{\"name\":\"Name should not be blank.\"}"));
     }
 }

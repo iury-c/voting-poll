@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 
 @RestController
 @Slf4j
+@Data
 @Api(tags = "Vote APIs")
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteController {

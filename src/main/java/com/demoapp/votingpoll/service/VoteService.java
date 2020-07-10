@@ -4,6 +4,7 @@ import com.demoapp.votingpoll.dto.VoteDto;
 import com.demoapp.votingpoll.entity.Vote;
 import com.demoapp.votingpoll.repository.SessionRepository;
 import com.demoapp.votingpoll.repository.VoteRepository;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Set;
 
 @Slf4j
 @Service
+@Data
 public class VoteService {
 
     @Autowired

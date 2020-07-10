@@ -37,7 +37,7 @@ public class SessionControllerTest {
         String name = JsonPath.parse(result.getResponse().getContentAsString()).read("$['name']");
 
         mvc.perform(post("/v1/session")
-            .content("{\"duration\": 0,\"subject\": \"" + name + "\"}") //TODO - Transform in object instead of using raw String Json
+            .content("{\"duration\": 2,\"subject\": \"" + name + "\"}") //TODO - Transform in object instead of using raw String Json
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
     }

@@ -4,6 +4,7 @@ import com.demoapp.votingpoll.dto.SessionDto;
 import com.demoapp.votingpoll.entity.Session;
 import com.demoapp.votingpoll.entity.Subject;
 import com.demoapp.votingpoll.repository.SessionRepository;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import java.util.Objects;
 
 @Slf4j
 @Service
+@Data
 public class SessionService {
 
     @Autowired

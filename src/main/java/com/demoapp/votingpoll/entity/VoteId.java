@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Data
 public class VoteId implements Serializable {
 
+    public static final long serialVersionUID = 4328743;
+
     private String cpf;
 
     @Column(name = "session_id")
