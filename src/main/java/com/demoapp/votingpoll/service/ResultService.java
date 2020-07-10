@@ -22,6 +22,13 @@ public class ResultService {
     public ResultDto getResults() {
         Set<Integer> voteList = voteService.findAllSessionsIds();
 
+        List<ResultDto.ResultSessionDto> resultSessionDtoList = getResultSessionDtos(voteList);
+
+        log.info("Returning result list {}", resultSessionDtoList);
+        return new ResultDto(resultSessionDtoList);
+    }
+
+    private List<ResultDto.ResultSessionDto> getResultSessionDtos(Set<Integer> voteList) {
         List<ResultDto.ResultSessionDto> resultSessionDtoList = new ArrayList<>();
 
         for (Integer sessionId : voteList) {
@@ -32,22 +39,6 @@ public class ResultService {
                 .build();
             resultSessionDtoList.add(resultSessionDto);
         }
-
-        return new ResultDto(resultSessionDtoList);
-
-
-        /**
-         Lista de um object que vai ser tipo:
-         {
-         {
-         sessionId:1
-         subject:
-         Sim:99,
-         Nao:98
-         }
-         }
-         */
-
-
+        return resultSessionDtoList;
     }
 }

@@ -59,10 +59,12 @@ public class SessionService {
     }
 
     public boolean isOpen(Integer sessionId) {
+        log.info("Verifying if session is still open");
         return findById(sessionId).getFinish().after(Calendar.getInstance().getTime());
     }
 
     public Session findById(Integer sessionId) {
+        log.info("Finding session by id {}", sessionId);
         return repository.findById(sessionId).orElse(null);
     }
 }

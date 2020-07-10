@@ -26,6 +26,7 @@ public class SubjectService {
     }
 
     public Subject findByName(String subject) {
+        log.info("Finding subject in database {}", subject);
         return repository.findByName(subject);
     }
 }

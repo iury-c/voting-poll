@@ -42,10 +42,12 @@ public class VoteService {
         vote.setType(voteDto.getVoteType());
         vote.setCreationDate(Calendar.getInstance().getTime());
 
+        log.info("Saving vote in database {}", vote);
         return repository.save(vote);
     }
 
     public void validateVote(VoteDto voteDto) {
+        log.info("Starting vote validation");
         if (!voteDto.getVoteType().contains("Sim") && !voteDto.getVoteType().contains("Nao")) {
             throw new IllegalArgumentException("Invalid vote type");
         }
@@ -54,13 +56,13 @@ public class VoteService {
         Assert.isTrue(sessionService.isOpen(voteDto.getSessionId()), "Voting session is finished");
 
         Assert.notNull(associateService.findById(voteDto.getCpf()), "Invalid cpf");
-        //Assert.isTrue(cpfValidationService.isCpfValid(voteDto.getCpf()), "Cpf could not be validated");
+        Assert.isTrue(cpfValidationService.isCpfValid(voteDto.getCpf()), "Cpf could not be validated");
 
         Assert.isNull(repository.findByCpfAndSessionId(voteDto.getCpf(), voteDto.getSessionId()), "Cpf has already voted for this session");
-
     }
 
     public Set<Integer> findAllSessionsIds() {
+        log.info("Finding all session ids that have votes");
         return repository.findAllSessionIdDistinct();
     }
 

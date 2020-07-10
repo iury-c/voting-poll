@@ -18,11 +18,13 @@ public class CpfValidationService {
     private RestTemplate restTemplate;
 
     public boolean isCpfValid(String cpf) {
+        log.info("Validating cpf at: {}", cpf);
         ResponseEntity<String> response = restTemplate.getForEntity(url.concat("/").concat(cpf), String.class);
-        if(response.getStatusCode().is2xxSuccessful()){
+
+        if (response.getStatusCode().is2xxSuccessful()) {
             return response.getBody().contains("ABLE_TO_VOTE");
         }
-
+        log.info("Cpf could not be validated");
         return false;
     }
 

@@ -29,7 +29,7 @@ public class ResultController {
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
     public ResultDto getResults() {
-        log.info("Results request received");
+        log.info("New Results request received");
         return resultService.getResults();
     }
 }
