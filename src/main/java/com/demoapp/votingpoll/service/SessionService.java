@@ -33,16 +33,15 @@ public class SessionService {
 
         Assert.notNull(subject, "Invalid subject");
 
-        Session session = processSession(sessionDto.getDuration(), subject);
+        Session session = processSessionDuration(sessionDto.getDuration());
+        session.setSubject(subject);
 
         log.info("Saving session in database {}", session);
         return repository.save(session);
     }
 
-    private Session processSession(Integer sessionDuration, Subject subject) {
+    private Session processSessionDuration(Integer sessionDuration) {
         Session session = new Session();
-        session.setSubject(subject);
-
         Calendar calendar = Calendar.getInstance();
 
         session.setStart(calendar.getTime());
@@ -60,7 +59,7 @@ public class SessionService {
         return session;
     }
 
-    public boolean isOpen(Integer sessionId) {
+    public boolean isOpenForVoting(Integer sessionId) {
         log.info("Verifying if session is still open");
         return findById(sessionId).getFinish().after(Calendar.getInstance().getTime());
     }

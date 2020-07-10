@@ -22,7 +22,7 @@ public class ResultService {
     private SessionService sessionService;
 
     public ResultDto getResults() {
-        Set<Integer> voteList = voteService.findAllSessionsIds();
+        Set<Integer> voteList = voteService.findAllVotedSessionsIds();
 
         List<ResultDto.ResultSessionDto> resultSessionDtoList = getResultSessionDtos(voteList);
 

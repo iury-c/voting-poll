@@ -50,12 +50,13 @@ public class VoteService {
 
     public void validateVote(VoteDto voteDto) {
         log.info("Starting vote validation");
+
         if (!voteDto.getVoteType().contains("Sim") && !voteDto.getVoteType().contains("Nao")) {
             throw new IllegalArgumentException("Invalid vote type");
         }
 
         Assert.notNull(sessionService.findById(voteDto.getSessionId()), "Invalid session id");
-        Assert.isTrue(sessionService.isOpen(voteDto.getSessionId()), "Voting session is finished");
+        Assert.isTrue(sessionService.isOpenForVoting(voteDto.getSessionId()), "Voting session is finished");
 
         Assert.notNull(associateService.findById(voteDto.getCpf()), "Invalid cpf");
         Assert.isTrue(cpfValidationService.isCpfValid(voteDto.getCpf()), "Cpf could not be validated");
@@ -63,13 +64,13 @@ public class VoteService {
         Assert.isNull(repository.findByCpfAndSessionId(voteDto.getCpf(), voteDto.getSessionId()), "Cpf has already voted for this session");
     }
 
-    public Set<Integer> findAllSessionsIds() {
+    public Set<Integer> findAllVotedSessionsIds() {
         log.info("Finding all session ids that have votes");
         return repository.findAllSessionIdDistinct();
     }
 
     public Map<String, Integer> getVotes(Integer sessionId) {
-        Set<String> voteTypeList = repository.findAllTypeDistinct();
+        Set<String> voteTypeList = repository.findAllVoteTypeDistinct();
 
         Map<String, Integer> votes = new HashMap<>();
 

@@ -14,7 +14,7 @@ public interface VoteRepository extends JpaRepository<Vote, VoteId> {
     Set<Integer> findAllSessionIdDistinct();
 
     @Query(value = "SELECT distinct type FROM VOTE ORDER BY 1", nativeQuery = true)
-    Set<String> findAllTypeDistinct();
+    Set<String> findAllVoteTypeDistinct();
 
     Integer countBySessionIdAndType(Integer sessionId, String type);
 
