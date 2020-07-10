@@ -10,13 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @Service
 public class VoteService {
 
     @Autowired
-    private VoteRepository voteRepository;
+    private VoteRepository repository;
 
     @Autowired
     private AssociateService associateService;
@@ -36,7 +39,7 @@ public class VoteService {
         vote.setType(voteDto.getVoteType());
         vote.setCreationDate(Calendar.getInstance().getTime());
 
-        return voteRepository.save(vote);
+        return repository.save(vote);
     }
 
     public void validateVote(VoteDto voteDto) {
@@ -45,10 +48,24 @@ public class VoteService {
         }
 
         Assert.isTrue(sessionService.isOpen(voteDto.getSessionId()), "Voting session is finished");
-
         Assert.notNull(associateService.findById(voteDto.getCpf()), "Invalid cpf");
         Assert.notNull(sessionService.findById(voteDto.getSessionId()), "Invalid session id");
+        Assert.isNull(repository.findByCpfAndSessionId(voteDto.getCpf(), voteDto.getSessionId()), "Cpf has already voted for this session");
+    }
 
-        Assert.isNull(voteRepository.findByCpfAndSessionId(voteDto.getCpf(), voteDto.getSessionId()), "Cpf has already voted for this session");
+    public Set<Integer> findAllSessionsIds() {
+        return repository.findAllSessionIdDistinct();
+    }
+
+    public Map<String, Integer> getVotes(Integer sessionId) {
+        Set<String> voteTypeList = repository.findAllTypeDistinct();
+
+        Map<String, Integer> votes = new HashMap<>();
+
+        for (String voteType : voteTypeList) {
+            Integer count = repository.countBySessionIdAndType(sessionId, voteType);
+            votes.put(voteType, count);
+        }
+        return votes;
     }
 }
