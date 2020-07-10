@@ -24,4 +24,8 @@ public class SubjectService {
         log.info("Saving subject in database {}", subject);
         return repository.save(subject);
     }
+
+    public Subject findByName(String subject) {
+        return repository.findByName(subject);
+    }
 }

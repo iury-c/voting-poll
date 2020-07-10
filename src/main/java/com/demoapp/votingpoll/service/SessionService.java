@@ -4,7 +4,6 @@ import com.demoapp.votingpoll.dto.SessionDto;
 import com.demoapp.votingpoll.entity.Session;
 import com.demoapp.votingpoll.entity.Subject;
 import com.demoapp.votingpoll.repository.SessionRepository;
-import com.demoapp.votingpoll.repository.SubjectRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,23 +18,23 @@ import java.util.Objects;
 public class SessionService {
 
     @Autowired
-    private SessionRepository sessionRepository;
+    private SessionRepository repository;
 
     @Autowired
-    private SubjectRepository subjectRepository;
+    private SubjectService subjectService;
 
     @Value("${session.defaultDuration}")
     private Integer duration;
 
     public Session createSession(SessionDto sessionDto) {
-        Subject subject = subjectRepository.findByName(sessionDto.getSubject());
+        Subject subject = subjectService.findByName(sessionDto.getSubject());
 
         Assert.notNull(subject, "Invalid subject");
 
         Session session = processSession(sessionDto.getDuration(), subject);
 
         log.info("Saving session in database {}", session);
-        return sessionRepository.save(session);
+        return repository.save(session);
     }
 
     private Session processSession(Integer sessionDuration, Subject subject) {
@@ -57,5 +56,13 @@ public class SessionService {
         session.setFinish(calendar.getTime());
 
         return session;
+    }
+
+    public boolean isOpen(Integer sessionId) {
+        return findById(sessionId).getFinish().after(Calendar.getInstance().getTime());
+    }
+
+    public Session findById(Integer sessionId) {
+        return repository.findById(sessionId).orElse(null);
     }
 }

@@ -1,7 +1,6 @@
 package com.demoapp.votingpoll.controller;
 
-import com.demoapp.votingpoll.dto.SessionDto;
-    import com.demoapp.votingpoll.dto.SubjectDto;
+import com.demoapp.votingpoll.dto.VoteDto;
 import com.demoapp.votingpoll.entity.Vote;
 import com.demoapp.votingpoll.service.VoteService;
 import io.swagger.annotations.Api;
@@ -33,8 +32,8 @@ public class VoteController {
         @ApiResponse(code = 200, message = "Ok"),
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    public Vote createVote(@Valid @RequestBody SubjectDto subjectDto) {
-        log.info("New Vote received: {}", subjectDto);
-        return voteService.createVote(new SessionDto());
+    public Vote createVote(@Valid @RequestBody VoteDto voteDto) {
+        log.info("New Vote received: {}", voteDto);
+        return voteService.createVote(voteDto);
     }
 }
