@@ -30,6 +30,9 @@ public class VoteService {
     @Autowired
     private SessionService sessionService;
 
+    @Autowired
+    private CpfValidationService cpfValidationService;
+
     public Vote createVote(VoteDto voteDto) {
         validateVote(voteDto);
 
@@ -47,10 +50,14 @@ public class VoteService {
             throw new IllegalArgumentException("Invalid vote type");
         }
 
-        Assert.isTrue(sessionService.isOpen(voteDto.getSessionId()), "Voting session is finished");
-        Assert.notNull(associateService.findById(voteDto.getCpf()), "Invalid cpf");
         Assert.notNull(sessionService.findById(voteDto.getSessionId()), "Invalid session id");
+        Assert.isTrue(sessionService.isOpen(voteDto.getSessionId()), "Voting session is finished");
+
+        Assert.notNull(associateService.findById(voteDto.getCpf()), "Invalid cpf");
+        //Assert.isTrue(cpfValidationService.isCpfValid(voteDto.getCpf()), "Cpf could not be validated");
+
         Assert.isNull(repository.findByCpfAndSessionId(voteDto.getCpf(), voteDto.getSessionId()), "Cpf has already voted for this session");
+
     }
 
     public Set<Integer> findAllSessionsIds() {

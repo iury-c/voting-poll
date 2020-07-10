@@ -13,3 +13,5 @@ spring:
       enabled: true
 session:
   defaultDuration: 1
+cpfValidation:
+  url: https://user-info.herokuapp.com/users
